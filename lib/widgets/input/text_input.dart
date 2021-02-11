@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TextInput extends StatelessWidget {
-  const TextInput({this.controller, this.label, this.readOnly, this.onPressed});
+  const TextInput({this.controller, this.label, this.readOnly = false, this.onPressed});
   final TextEditingController controller;
   final String label;
   final bool readOnly;
@@ -17,7 +17,7 @@ class TextInput extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onTap: onPressed,
-        readOnly: true,
+        readOnly: readOnly,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(5),
           border: InputBorder.none,

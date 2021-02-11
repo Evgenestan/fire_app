@@ -2,6 +2,7 @@ import 'package:fire_app/constants.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/main/domain/state/main_state.dart';
+import 'package:fire_app/result/presentation/result_view.dart';
 import 'package:fire_app/widgets/input/selector.dart';
 import 'package:fire_app/widgets/input/text_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,8 +21,24 @@ class _MainViewState extends State<MainView> {
   MainState _mainState;
 
   Future<void> _selectCoefficient() async {
-    final test = await showSelector<Coefficient>(items: _mainState.coefficients.map((e) => SelectorItem(title: e.title, value: e)).toList(), context: context);
-    print(test?.value);
+    final coefficient = await showSelector<Coefficient>(items: _mainState.coefficients.map((e) => SelectorItem(title: e.title, value: e)).toList(), context: context);
+    _mainState.setCoefficient(coefficient);
+  }
+
+  void _calculate() {
+    final result = _mainState.getResultOfCalculated();
+    if (result != null) {
+      // showModalBottomSheet<void>(
+      //   context: context,
+      //   builder: (_) => ResultView(time: _mainState.time, coefficient: _mainState.coefficient, result: result),
+      // );
+      Navigator.push<dynamic>(
+        context,
+        CupertinoPageRoute<dynamic>(
+          builder: (context) => ResultView(time: _mainState.time, coefficient: _mainState.coefficient, result: result),
+        ),
+      );
+    }
   }
 
   Widget _buildLogo() {
@@ -29,8 +46,6 @@ class _MainViewState extends State<MainView> {
       height: 100,
       child: Image.asset(
         Assets.fireIconS,
-        color: Colors.black,
-        colorBlendMode: BlendMode.color,
       ),
     );
   }
@@ -39,15 +54,25 @@ class _MainViewState extends State<MainView> {
     return Column(
       children: [
         TextInput(
-          controller: TextEditingController(),
+          controller: _mainState.timeController,
           label: 'Время горения',
         ),
         const SizedBox(height: 15),
         TextInput(
           label: 'Коэффициент',
+          readOnly: true,
+          controller: _mainState.coefficientController,
           onPressed: _selectCoefficient,
         ),
       ],
+    );
+  }
+
+  Widget _buildButton() {
+    return RaisedButton(
+      onPressed: _calculate,
+      color: Colors.grey,
+      child: const Text('Расчет', style: TextStyle(color: Colors.white)),
     );
   }
 
@@ -55,7 +80,7 @@ class _MainViewState extends State<MainView> {
   void initState() {
     super.initState();
     _mainState = MainState(GetIt.instance<MainRepository>());
-    _mainState.loadCoefficient();
+    _mainState.init();
   }
 
   @override
@@ -72,8 +97,10 @@ class _MainViewState extends State<MainView> {
           physics: const BouncingScrollPhysics(),
           children: [
             _buildLogo(),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
             _buildInputCoefficients(),
+            const SizedBox(height: 30),
+            _buildButton(),
           ],
         ),
       ),

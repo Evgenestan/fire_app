@@ -15,12 +15,24 @@ class SelectorView extends StatelessWidget {
   const SelectorView(this.items);
   final List<SelectorItem> items;
 
-  Widget _buildSelectorList(BuildContext context, int count) {
+  Widget _buildSelectorItem(BuildContext context, int count) {
     final item = items[count];
     return InkWell(
-      child: SizedBox(
-        height: 30,
-        child: Text(item.title),
+      splashColor: Colors.grey,
+      child: Card(
+        shadowColor: Colors.black87,
+        elevation: 5,
+        child: Container(
+          height: 55,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(10),
+          child: Text(
+            item.title,
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+        ),
       ),
       onTap: () => Navigator.of(context).pop<dynamic>(item.value),
     );
@@ -35,15 +47,15 @@ class SelectorView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       height: 300,
-      child: Column(
+      child: Stack(
         children: [
-          BottomSheetHandle(),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: _buildSelectorList,
-            ),
+          ListView.builder(
+            itemCount: items.length,
+            itemBuilder: _buildSelectorItem,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.only(top: 10),
           ),
+          BottomSheetHandle(),
         ],
       ),
     );
