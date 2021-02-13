@@ -3,6 +3,7 @@ import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/main/domain/state/main_state.dart';
 import 'package:fire_app/result/presentation/result_view.dart';
+import 'package:fire_app/widgets/express_app_bar.dart';
 import 'package:fire_app/widgets/input/selector.dart';
 import 'package:fire_app/widgets/input/text_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,10 +29,6 @@ class _MainViewState extends State<MainView> {
   void _calculate() {
     final result = _mainState.getResultOfCalculated();
     if (result != null) {
-      // showModalBottomSheet<void>(
-      //   context: context,
-      //   builder: (_) => ResultView(time: _mainState.time, coefficient: _mainState.coefficient, result: result),
-      // );
       Navigator.push<dynamic>(
         context,
         CupertinoPageRoute<dynamic>(
@@ -43,7 +40,7 @@ class _MainViewState extends State<MainView> {
 
   Widget _buildLogo() {
     return SizedBox(
-      height: 100,
+      height: 150,
       child: Image.asset(
         Assets.fireIconS,
       ),
@@ -55,11 +52,11 @@ class _MainViewState extends State<MainView> {
       children: [
         TextInput(
           controller: _mainState.timeController,
-          label: 'Время горения',
+          label: 'Время свободного развития пожара (сек.)',
         ),
         const SizedBox(height: 15),
         TextInput(
-          label: 'Коэффициент',
+          label: 'Вид горючей нагрузки',
           readOnly: true,
           controller: _mainState.coefficientController,
           onPressed: _selectCoefficient,
@@ -69,10 +66,14 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget _buildButton() {
-    return RaisedButton(
-      onPressed: _calculate,
-      color: Colors.grey,
-      child: const Text('Расчет', style: TextStyle(color: Colors.white)),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 50),
+      height: 50,
+      child: RaisedButton(
+        onPressed: _calculate,
+        color: Colors.black87,
+        child: const Text('Расчет', style: TextStyle(color: Colors.white, fontSize: 20)),
+      ),
     );
   }
 
@@ -85,9 +86,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text(widget.title),
-    );
+    final appBar = ExpressAppBar(title: widget.title);
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(

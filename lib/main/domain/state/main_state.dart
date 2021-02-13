@@ -32,7 +32,7 @@ class MainState {
   }
 
   String getResultOfCalculated() {
-    if (coefficient != null && time != null) {
+    if (coefficient != null && time != null && time > 0) {
       return (unknownCoefficient * coefficient.value * pow(time, 0.9)).toStringAsFixed(2);
     }
     return null;
