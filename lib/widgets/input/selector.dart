@@ -1,4 +1,4 @@
-import 'package:fire_app/colors.dart';
+import 'package:fire_app/auxiliary/colors.dart';
 import 'package:fire_app/widgets/bottom_sheet_handle.dart';
 import 'package:flutter/material.dart';
 

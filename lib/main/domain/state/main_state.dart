@@ -1,18 +1,28 @@
 import 'dart:math';
 
-import 'package:fire_app/constants.dart';
+import 'package:fire_app/auxiliary/constants.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mobx/mobx.dart';
 
-class MainState {
-  MainState(this._mainRepository);
+part 'main_state.g.dart';
+
+class MainState = _MainStateBase with _$MainState;
+
+abstract class _MainStateBase with Store {
+  _MainStateBase(this._mainRepository);
 
   final MainRepository _mainRepository;
 
+  @observable
   Coefficient coefficient;
 
+  @observable
   double time;
+
+  @computed
+  bool get canCalculate => time != null && time > 0 && coefficient != null;
 
   List<Coefficient> get coefficients => _mainRepository.coefficients;
 
@@ -20,6 +30,7 @@ class MainState {
 
   TextEditingController timeController = TextEditingController();
 
+  @action
   void setCoefficient(Coefficient coefficient) {
     if (coefficient != null) {
       this.coefficient = coefficient;
@@ -27,6 +38,7 @@ class MainState {
     }
   }
 
+  @action
   void setTime() {
     time = double.tryParse(timeController.text);
   }

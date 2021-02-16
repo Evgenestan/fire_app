@@ -1,9 +1,12 @@
-import 'package:fire_app/inject.dart';
+import 'package:fire_app/auxiliary/inject.dart';
+import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/main/presentation/main_view.dart';
 import 'package:flutter/material.dart';
+import 'package:yalo_locale/lib.dart';
 
 void main() {
   Repositories.init();
+  sl.registerSingleton<LocalizationMessages>(Messages.ru);
   runApp(MyApp());
 }
 
@@ -16,7 +19,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MainView(title: 'Экспресс ОФП'),
+      home: const MainView(title: ''),
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
     );
   }
 }
