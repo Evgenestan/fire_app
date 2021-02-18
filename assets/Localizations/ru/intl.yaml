@@ -2,6 +2,7 @@ main:
   calulate: Расчет
   fireTime: Время свободного развития пожара (сек.)
   typeOfLoad: Вид горючей нагрузки
+  description: Расчет ОФП\nпо тепловому потоку
 
 result:
   initialData: Исходные данные

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MainView(title: ''),
+      home: MainView(),
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
     );
