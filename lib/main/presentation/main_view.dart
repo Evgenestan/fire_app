@@ -1,5 +1,6 @@
 import 'package:fire_app/auxiliary/constants.dart';
 import 'package:fire_app/auxiliary/sl.dart';
+import 'package:fire_app/info/presentation/info_view.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/main/domain/state/main_state.dart';
@@ -25,6 +26,15 @@ class _MainViewState extends State<MainView> {
   Future<void> _selectCoefficient() async {
     final coefficient = await showSelector<Coefficient>(items: _mainState.coefficients.map((e) => SelectorItem(title: e.title, value: e)).toList(), context: context);
     _mainState.setCoefficient(coefficient);
+  }
+
+  void _openInfo() {
+    Navigator.push<dynamic>(
+      context,
+      CupertinoPageRoute<dynamic>(
+        builder: (context) => InfoView(),
+      ),
+    );
   }
 
   void _calculate() {
@@ -100,7 +110,7 @@ class _MainViewState extends State<MainView> {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: IconButton(icon: Image.asset(Assets.infoIconS), onPressed: () {}),
+                child: IconButton(icon: Image.asset(Assets.infoIconS), onPressed: _openInfo),
               ),
               _buildLogo(),
               const SizedBox(height: 15),

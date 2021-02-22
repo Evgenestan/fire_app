@@ -6,7 +6,16 @@ main:
 
 result:
   initialData: Исходные данные
-  title: Результат
-  description: 'Время наступления критического значения опасного фактора пожара по тепловому потоку с учетом коэффициента безопасности 0,8 составляет:'
+  title: Результат расчета
+  result: Результат
+  descriptions:
+    prefix: 'Критическое значение опасного фактора пожара по тепловому потоку с учетом коэффициента безопасности 0,8 составляет:'
+    suffix: 'Погрешность результатов расчетов относительно базовой (полной) версии методики не более 1,4 %.'
   load: Горючая нагрузка
+  fireTime: Время свободного развития пожара
   error: Погрешность результатов расчетов относительно базовой (полной) версии методики не более 1,4 %.
+  unit: ' (м)'
+
+
+info:
+  loremIpsum: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'

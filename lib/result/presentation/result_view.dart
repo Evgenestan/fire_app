@@ -1,9 +1,11 @@
+import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/widgets/express_app_bar.dart';
+import 'package:fire_app/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:yalo_assets/lib.dart';
+import 'package:yalo_locale/lib.dart';
 
 class ResultView extends StatefulWidget {
   const ResultView({@required this.time, @required this.coefficient, @required this.result});
@@ -15,17 +17,9 @@ class ResultView extends StatefulWidget {
 }
 
 class _ResultViewState extends State<ResultView> {
+  final _loc = sl<LocalizationMessages>();
   void _share() {
-    Share.share('Время горения: ${widget.time} сек.\nКоэфициент: ${widget.coefficient.title}\nРезультат: ${widget.result}');
-  }
-
-  Widget _buildLogo() {
-    return SizedBox(
-      height: 150,
-      child: Image.asset(
-        Assets.fireIconS,
-      ),
-    );
+    Share.share('${_loc.result.fireTime}: ${widget.time} сек.\n${_loc.result.load}: ${widget.coefficient.title}\nРезультат: ${widget.result} (м)');
   }
 
   Widget _buildEnteredParameter({String title, String value}) {
@@ -34,19 +28,15 @@ class _ResultViewState extends State<ResultView> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child: Text(
-            title,
-            maxLines: 2,
+          child: TextL(
+            title + ':',
             textAlign: TextAlign.start,
-            style: const TextStyle(fontSize: 18, color: Colors.black54),
           ),
         ),
         SizedBox(
           width: 120,
-          child: Text(
+          child: TextM(
             value,
-            maxLines: 3,
-            softWrap: true,
             textAlign: TextAlign.center,
           ),
         ),
@@ -56,36 +46,45 @@ class _ResultViewState extends State<ResultView> {
 
   Widget _buildInitialData() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(
-          'Введенные параметры',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        Text(
+          _loc.result.initialData,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
         ),
+        const SizedBox(height: 20),
+        _buildEnteredParameter(title: _loc.result.fireTime, value: '${widget.time} сек.'),
         const SizedBox(height: 15),
-        _buildEnteredParameter(title: 'Время горения:', value: '${widget.time} сек.'),
-        const SizedBox(height: 15),
-        _buildEnteredParameter(title: 'Вид горючей нагрузки:', value: widget.coefficient.title),
+        _buildEnteredParameter(title: _loc.result.load, value: widget.coefficient.title),
       ],
     );
   }
 
   Widget _buildResult() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Результат:',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-        ),
-        SizedBox(
-          width: 120,
-          child: Text(
-            widget.result,
+        HeadingL(_loc.result.result),
+        const SizedBox(height: 20),
+        TextL(_loc.result.descriptions.prefix, textAlign: TextAlign.center),
+        const SizedBox(height: 20),
+        Container(
+          width: 300,
+          height: 50,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
+          child: HeadingM(
+            widget.result + _loc.result.unit,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500, color: Colors.green),
+            color: Colors.white,
           ),
+        ),
+        const SizedBox(height: 20),
+        TextM(
+          _loc.result.descriptions.suffix,
+          textAlign: TextAlign.center,
         ),
       ],
     );
@@ -99,7 +98,7 @@ class _ResultViewState extends State<ResultView> {
   @override
   Widget build(BuildContext context) {
     final appBar = ExpressAppBar(
-      title: 'Результаты расчета',
+      title: _loc.result.title,
       actions: [IconButton(icon: const Icon(Icons.share), onPressed: _share)],
     );
 
@@ -111,10 +110,8 @@ class _ResultViewState extends State<ResultView> {
           padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 25),
           physics: const BouncingScrollPhysics(),
           children: [
-            _buildLogo(),
-            const SizedBox(height: 30),
             _buildInitialData(),
-            const SizedBox(height: 60),
+            const SizedBox(height: 50),
             _buildResult(),
           ],
         ),

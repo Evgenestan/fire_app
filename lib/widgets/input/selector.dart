@@ -46,6 +46,7 @@ class _SelectorViewState extends State<SelectorView> {
           softWrap: true,
           overflow: TextOverflow.ellipsis,
           maxLines: 2,
+          textAlign: TextAlign.center,
         ),
       ),
       onTap: () => Navigator.of(context).pop<dynamic>(item.value),
