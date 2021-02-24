@@ -1,4 +1,7 @@
 import 'package:fire_app/auxiliary/sl.dart';
+import 'package:fire_app/history/data/model/history_entry.dart';
+import 'package:fire_app/history/domain/repository/history_repository.dart';
+import 'package:fire_app/history/domain/state/history_state.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/widgets/express_app_bar.dart';
 import 'package:fire_app/widgets/text.dart';
@@ -18,8 +21,14 @@ class ResultView extends StatefulWidget {
 
 class _ResultViewState extends State<ResultView> {
   final _loc = sl<LocalizationMessages>();
+  final HistoryState _historyState = HistoryState(sl<HistoryRepository>());
   void _share() {
     Share.share('${_loc.result.fireTime}: ${widget.time} сек.\n${_loc.result.load}: ${widget.coefficient.title}\nРезультат: ${widget.result} (м)');
+  }
+
+  void _save() {
+    final entry = HistoryEntry(title: 'test', result: widget.result, coefficient: widget.coefficient.title, time: widget.time.toString());
+    _historyState.addHistoryEntry(entry);
   }
 
   Widget _buildEnteredParameter({String title, String value}) {
@@ -70,15 +79,18 @@ class _ResultViewState extends State<ResultView> {
         const SizedBox(height: 20),
         TextL(_loc.result.descriptions.prefix, textAlign: TextAlign.center),
         const SizedBox(height: 20),
-        Container(
-          width: 300,
-          height: 50,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
-          child: HeadingM(
-            widget.result + _loc.result.unit,
-            textAlign: TextAlign.center,
-            color: Colors.white,
+        InkWell(
+          onTap: _save,
+          child: Container(
+            width: 300,
+            height: 50,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
+            child: HeadingM(
+              widget.result + _loc.result.unit,
+              textAlign: TextAlign.center,
+              color: Colors.white,
+            ),
           ),
         ),
         const SizedBox(height: 20),
@@ -93,6 +105,7 @@ class _ResultViewState extends State<ResultView> {
   @override
   void initState() {
     super.initState();
+    _historyState.init();
   }
 
   @override

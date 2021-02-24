@@ -4,9 +4,10 @@ import 'package:fire_app/main/presentation/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:yalo_locale/lib.dart';
 
-void main() {
-  Repositories.init();
+Future<void> main() async {
   sl.registerSingleton<LocalizationMessages>(Messages.ru);
+  final _clients = await init();
+  Repositories.init(_clients);
   runApp(MyApp());
 }
 

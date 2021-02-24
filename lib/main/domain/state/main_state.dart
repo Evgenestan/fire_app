@@ -8,10 +8,10 @@ import 'package:mobx/mobx.dart';
 
 part 'main_state.g.dart';
 
-class MainState = _MainStateBase with _$MainState;
+class MainState = _MainState with _$MainState;
 
-abstract class _MainStateBase with Store {
-  _MainStateBase(this._mainRepository);
+abstract class _MainState with Store {
+  _MainState(this._mainRepository);
 
   final MainRepository _mainRepository;
 
