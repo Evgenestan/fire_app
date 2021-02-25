@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:fire_app/auxiliary/Client.dart';
+import 'package:fire_app/auxiliary/сlient.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:flutter/services.dart';
 

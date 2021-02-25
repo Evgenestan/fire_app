@@ -1,5 +1,5 @@
-import 'package:fire_app/auxiliary/Client.dart';
 import 'package:fire_app/auxiliary/sl.dart';
+import 'package:fire_app/auxiliary/сlient.dart';
 import 'package:fire_app/history/data/model/history_entry.dart';
 import 'package:fire_app/history/data/repository/history_repository_impl.dart';
 import 'package:fire_app/history/data/service/history_client.dart';

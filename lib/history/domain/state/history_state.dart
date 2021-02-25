@@ -17,7 +17,6 @@ abstract class _HistoryState with Store {
   Future<void> init() async {
     history.clear();
     history.addAll(await _historyRepository.getHistory());
-    print(history.length);
   }
 
   @action

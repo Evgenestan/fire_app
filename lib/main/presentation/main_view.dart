@@ -1,10 +1,10 @@
 import 'package:fire_app/auxiliary/constants.dart';
+import 'package:fire_app/auxiliary/router.dart';
 import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/info/presentation/info_view.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/main/domain/state/main_state.dart';
-import 'package:fire_app/result/presentation/result_view.dart';
 import 'package:fire_app/widgets/input/selector.dart';
 import 'package:fire_app/widgets/input/text_input.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,14 +38,15 @@ class _MainViewState extends State<MainView> {
   }
 
   void _calculate() {
-    final result = _mainState.getResultOfCalculated();
-    if (result != null) {
-      Navigator.push<dynamic>(
+    final result = _mainState.calculate();
+    if (result == true) {
+      /*Navigator.push<dynamic>(
         context,
         CupertinoPageRoute<dynamic>(
           builder: (context) => ResultView(time: _mainState.time, coefficient: _mainState.coefficient, result: result),
         ),
-      );
+      );*/
+      Navigator.of(context).pushNamed(Routes.to.result);
     }
   }
 

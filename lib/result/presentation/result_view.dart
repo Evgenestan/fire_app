@@ -2,7 +2,9 @@ import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/history/data/model/history_entry.dart';
 import 'package:fire_app/history/domain/repository/history_repository.dart';
 import 'package:fire_app/history/domain/state/history_state.dart';
-import 'package:fire_app/main/data/model/coefficient.dart';
+import 'package:fire_app/main/domain/repository/main_repository.dart';
+import 'package:fire_app/main/domain/state/main_state.dart';
+import 'package:fire_app/result/data/model/result_model.dart';
 import 'package:fire_app/widgets/express_app_bar.dart';
 import 'package:fire_app/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,10 +13,6 @@ import 'package:share/share.dart';
 import 'package:yalo_locale/lib.dart';
 
 class ResultView extends StatefulWidget {
-  const ResultView({@required this.time, @required this.coefficient, @required this.result});
-  final double time;
-  final Coefficient coefficient;
-  final String result;
   @override
   _ResultViewState createState() => _ResultViewState();
 }
@@ -22,12 +20,14 @@ class ResultView extends StatefulWidget {
 class _ResultViewState extends State<ResultView> {
   final _loc = sl<LocalizationMessages>();
   final HistoryState _historyState = HistoryState(sl<HistoryRepository>());
+  final MainState _mainState = MainState(sl<MainRepository>());
+  Result result;
   void _share() {
-    Share.share('${_loc.result.fireTime}: ${widget.time} сек.\n${_loc.result.load}: ${widget.coefficient.title}\nРезультат: ${widget.result} (м)');
+    Share.share('${_loc.result.fireTime}: ${result.time} сек.\n${_loc.result.load}: ${result.coefficient.title}\nРезультат: ${result.value} (м)');
   }
 
   void _save() {
-    final entry = HistoryEntry(title: 'test', result: widget.result, coefficient: widget.coefficient.title, time: widget.time.toString());
+    final entry = HistoryEntry(title: 'test', result: result.value, coefficient: result.coefficient.title, time: result.time.toString());
     _historyState.addHistoryEntry(entry);
   }
 
@@ -63,9 +63,9 @@ class _ResultViewState extends State<ResultView> {
           style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 20),
-        _buildEnteredParameter(title: _loc.result.fireTime, value: '${widget.time} сек.'),
+        _buildEnteredParameter(title: _loc.result.fireTime, value: '${result.time} сек.'),
         const SizedBox(height: 15),
-        _buildEnteredParameter(title: _loc.result.load, value: widget.coefficient.title),
+        _buildEnteredParameter(title: _loc.result.load, value: result.coefficient.title),
       ],
     );
   }
@@ -87,7 +87,7 @@ class _ResultViewState extends State<ResultView> {
             alignment: Alignment.center,
             decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
             child: HeadingM(
-              widget.result + _loc.result.unit,
+              result.value + _loc.result.unit,
               textAlign: TextAlign.center,
               color: Colors.white,
             ),
@@ -106,6 +106,7 @@ class _ResultViewState extends State<ResultView> {
   void initState() {
     super.initState();
     _historyState.init();
+    result = _mainState.result;
   }
 
   @override

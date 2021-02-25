@@ -1,4 +1,4 @@
-import 'package:fire_app/auxiliary/Client.dart';
+import 'package:fire_app/auxiliary/сlient.dart';
 import 'package:fire_app/history/data/model/history_entry.dart';
 import 'package:hive/hive.dart';
 
