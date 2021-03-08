@@ -11,10 +11,52 @@ class InfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _loc = sl<LocalizationMessages>();
     return Scaffold(
-      appBar: const ExpressAppBar(title: 'О нас'),
+      appBar: const ExpressAppBar(title: 'Информация'),
       body: ListView(
-        padding: const EdgeInsets.all(horizontalPadding),
-        children: [const HeadingM('Заголовок'), TextM(_loc.info.loremIpsum)],
+        padding: const EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 25),
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextM(_loc.info.start.first),
+              TextM(_loc.info.start.second),
+              TextM(_loc.info.start.third),
+              TextM(_loc.info.start.fourth),
+              TextM(_loc.info.start.fifth),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextM(_loc.info.params.first),
+                TextM(_loc.info.params.second),
+                TextM(_loc.info.params.third),
+              ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextM(_loc.info.middle.first),
+              TextM(_loc.info.middle.second),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextM(_loc.info.initialData.first),
+                TextM(_loc.info.initialData.second),
+                TextM(_loc.info.initialData.third),
+                TextM(_loc.info.initialData.fourth),
+              ],
+            ),
+          ),
+          TextM(_loc.info.end),
+        ],
       ),
     );
   }

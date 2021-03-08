@@ -1,10 +1,10 @@
-import 'package:fire_app/auxiliary/сlient.dart';
+import 'package:fire_app/auxiliary/base_client.dart';
 import 'package:fire_app/history/data/model/history_entry.dart';
 import 'package:hive/hive.dart';
 
 const HISTORY_BOX = 'history_box';
 
-class HistoryClient extends Client {
+class HistoryClient extends BaseClient {
   HistoryClient(this.box);
   final Box<HistoryEntry> box;
   Future<List<HistoryEntry>> getHistory() async {
