@@ -10,7 +10,7 @@ class HistoryEntryFragment extends StatelessWidget {
 
   Widget _buildParameter({String title, String value}) {
     return Padding(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -26,7 +26,6 @@ class HistoryEntryFragment extends StatelessWidget {
     return Card(
       color: grayBackgroundColor,
       child: Container(
-        height: 155,
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
