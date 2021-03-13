@@ -40,14 +40,12 @@ class _MainViewState extends State<MainView> {
   void _calculate() {
     final result = _mainState.calculate();
     if (result == true) {
-      /*Navigator.push<dynamic>(
-        context,
-        CupertinoPageRoute<dynamic>(
-          builder: (context) => ResultView(time: _mainState.time, coefficient: _mainState.coefficient, result: result),
-        ),
-      );*/
       Navigator.of(context).pushNamed(Routes.to.result);
     }
+  }
+
+  void _openHistory() {
+    Navigator.of(context).pushNamed(Routes.to.history);
   }
 
   Widget _buildLogo() {
@@ -127,6 +125,11 @@ class _MainViewState extends State<MainView> {
               _buildButton(),
             ],
           ),
+        ),
+        floatingActionButton: IconButton(
+          icon: const Icon(Icons.history),
+          onPressed: _openHistory,
+          iconSize: 50,
         ),
       ),
     );

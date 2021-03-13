@@ -13,6 +13,7 @@ class HistoryClient extends BaseClient {
 
   void addHistoryEntry(HistoryEntry historyEntry) {
     box.add(historyEntry);
+    print(box.length);
   }
 
   void deleteHistoryEntry() {

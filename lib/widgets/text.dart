@@ -1,3 +1,4 @@
+import 'package:fire_app/auxiliary/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class HeadingL extends StatelessWidget {
 }
 
 class HeadingM extends StatelessWidget {
-  const HeadingM(this.text, {this.textAlign = TextAlign.start, this.color = Colors.black});
+  const HeadingM(this.text, {this.textAlign = TextAlign.start, this.color = textColor});
   final String text;
   final TextAlign textAlign;
   final Color color;
@@ -30,10 +31,26 @@ class HeadingM extends StatelessWidget {
   }
 }
 
-class TextL extends StatelessWidget {
-  const TextL(this.text, {this.textAlign = TextAlign.start});
+class HeadingS extends StatelessWidget {
+  const HeadingS(this.text, {this.textAlign = TextAlign.start, this.color = textColor});
   final String text;
   final TextAlign textAlign;
+  final Color color;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: color),
+    );
+  }
+}
+
+class TextL extends StatelessWidget {
+  const TextL(this.text, {this.textAlign = TextAlign.start, this.color = textColor});
+  final String text;
+  final TextAlign textAlign;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +58,16 @@ class TextL extends StatelessWidget {
       text,
       softWrap: true,
       textAlign: textAlign,
-      style: const TextStyle(fontSize: 18),
+      style: TextStyle(fontSize: 18, color: color),
     );
   }
 }
 
 class TextM extends StatelessWidget {
-  const TextM(this.text, {this.textAlign = TextAlign.start});
+  const TextM(this.text, {this.textAlign = TextAlign.start, this.color = textColor});
   final String text;
   final TextAlign textAlign;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +75,7 @@ class TextM extends StatelessWidget {
       text,
       softWrap: true,
       textAlign: textAlign,
-      style: const TextStyle(fontSize: 15),
+      style: TextStyle(fontSize: 15, color: color),
     );
   }
 }

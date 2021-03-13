@@ -1,4 +1,5 @@
 import 'package:fire_app/auxiliary/routes.dart';
+import 'package:fire_app/history/presentation/history_view.dart';
 import 'package:fire_app/info/presentation/info_view.dart';
 import 'package:fire_app/main/presentation/main_view.dart';
 import 'package:fire_app/result/presentation/result_view.dart';
@@ -10,5 +11,6 @@ class Routes {
     to.main: (context) => MainView(),
     to.result: (context) => ResultView(),
     to.info: (context) => InfoView(),
+    to.history: (context) => HistoryView(),
   };
 }
