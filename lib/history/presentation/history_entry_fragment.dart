@@ -5,8 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HistoryEntryFragment extends StatelessWidget {
-  const HistoryEntryFragment(this.entry);
+  const HistoryEntryFragment({@required this.entry, @required this.onDelete});
   final HistoryEntry entry;
+  final VoidCallback onDelete;
 
   Widget _buildParameter({String title, String value}) {
     return Padding(
@@ -14,8 +15,8 @@ class HistoryEntryFragment extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: TextL(title, color: secondTextColor)),
-          TextL(value, textAlign: TextAlign.center),
+          Flexible(child: TextL(title, color: secondTextColor), fit: FlexFit.tight),
+          Flexible(child: TextL(value, textAlign: TextAlign.center), fit: FlexFit.tight),
         ],
       ),
     );
@@ -34,7 +35,9 @@ class HistoryEntryFragment extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 HeadingS(entry.title),
-                TextM('кнопочки'),
+                Row(
+                  children: [IconButton(icon: const Icon(Icons.delete), onPressed: onDelete)],
+                ),
               ],
             ),
             _buildParameter(title: 'Время горения:', value: entry.time),

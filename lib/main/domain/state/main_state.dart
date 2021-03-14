@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:fire_app/auxiliary/constants.dart';
+import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/main/data/model/coefficient.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/result/data/model/result_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:yalo_locale/lib.dart';
 
 part 'main_state.g.dart';
 
@@ -15,6 +17,7 @@ abstract class _MainState with Store {
   _MainState(this._mainRepository);
 
   final MainRepository _mainRepository;
+  final _loc = sl<LocalizationMessages>();
 
   @observable
   Coefficient coefficient;
@@ -22,8 +25,11 @@ abstract class _MainState with Store {
   @observable
   double time;
 
+  @observable
+  String timeError = '';
+
   @computed
-  bool get canCalculate => time != null && time > 0 && coefficient != null;
+  bool get canCalculate => time != null && time > 0 && coefficient != null && timeError.isEmpty;
 
   Result get result => _mainRepository.getResult;
 
@@ -44,6 +50,10 @@ abstract class _MainState with Store {
   @action
   void setTime() {
     time = double.tryParse(timeController.text);
+    timeError = '';
+    if (time != null && time > 600) {
+      timeError = _loc.main.error;
+    }
   }
 
   bool calculate() {
@@ -59,5 +69,10 @@ abstract class _MainState with Store {
   void init() {
     _mainRepository.loadCoefficient();
     timeController.addListener(setTime);
+  }
+
+  void clear() {
+    coefficientController.text = '';
+    timeController.text = '';
   }
 }

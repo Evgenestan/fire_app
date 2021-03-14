@@ -13,10 +13,10 @@ class HistoryClient extends BaseClient {
 
   void addHistoryEntry(HistoryEntry historyEntry) {
     box.add(historyEntry);
-    print(box.length);
   }
 
-  void deleteHistoryEntry() {
-    //box.deleteAt(index)
+  void deleteHistoryEntry(HistoryEntry historyEntry) {
+    final index = box.values.toList().indexWhere((value) => value.title == historyEntry.title);
+    box.deleteAt(index);
   }
 }

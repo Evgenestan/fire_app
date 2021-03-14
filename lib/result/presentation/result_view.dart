@@ -5,6 +5,7 @@ import 'package:fire_app/history/domain/state/history_state.dart';
 import 'package:fire_app/main/domain/repository/main_repository.dart';
 import 'package:fire_app/main/domain/state/main_state.dart';
 import 'package:fire_app/result/data/model/result_model.dart';
+import 'package:fire_app/result/presentation/widgets/add_history_modal.dart';
 import 'package:fire_app/widgets/express_app_bar.dart';
 import 'package:fire_app/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,9 +27,12 @@ class _ResultViewState extends State<ResultView> {
     Share.share('${_loc.result.fireTime}: ${result.time} сек.\n${_loc.result.load}: ${result.coefficient.title}\nРезультат: ${result.value} (м)');
   }
 
-  void _save() {
-    final entry = HistoryEntry(title: 'test', result: result.value, coefficient: result.coefficient.title, time: result.time.toString());
-    _historyState.addHistoryEntry(entry);
+  Future<void> _save() async {
+    final title = await showDialog<String>(context: context, builder: (_) => AddHistoryModal());
+    if (title != null && title.isNotEmpty) {
+      final entry = HistoryEntry(title: title, result: result.value, coefficient: result.coefficient.title, time: result.time.toString());
+      _historyState.addHistoryEntry(entry);
+    }
   }
 
   Widget _buildEnteredParameter({String title, String value}) {
@@ -79,24 +83,36 @@ class _ResultViewState extends State<ResultView> {
         const SizedBox(height: 20),
         TextL(_loc.result.descriptions.prefix, textAlign: TextAlign.center),
         const SizedBox(height: 20),
-        InkWell(
-          onTap: _save,
-          child: Container(
-            width: 300,
-            height: 50,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
-            child: HeadingM(
-              result.value + _loc.result.unit,
-              textAlign: TextAlign.center,
-              color: Colors.white,
-            ),
+        Container(
+          width: 300,
+          height: 50,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(3)),
+          child: HeadingM(
+            result.value + _loc.result.unit,
+            textAlign: TextAlign.center,
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 20),
         TextM(
           _loc.result.descriptions.suffix,
           textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 20),
+        InkWell(
+          onTap: _save,
+          child: Container(
+            width: 300,
+            height: 50,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(3)),
+            child: const HeadingM(
+              'Сохранить',
+              textAlign: TextAlign.center,
+              color: Colors.white,
+            ),
+          ),
         ),
       ],
     );

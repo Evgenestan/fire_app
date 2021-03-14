@@ -41,6 +41,7 @@ class _MainViewState extends State<MainView> {
     final result = _mainState.calculate();
     if (result == true) {
       Navigator.of(context).pushNamed(Routes.to.result);
+      _mainState.clear();
     }
   }
 
@@ -63,8 +64,10 @@ class _MainViewState extends State<MainView> {
       children: [
         Text(_loc.main.fireTime, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
         const SizedBox(height: 5),
-        TextInput(controller: _mainState.timeController),
-        const SizedBox(height: 15),
+        Observer(
+          builder: (_) => TextInput(controller: _mainState.timeController, textInputType: TextInputType.number, errorText: _mainState.timeError),
+        ),
+        const SizedBox(height: 10),
         Text(_loc.main.typeOfLoad, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
         const SizedBox(height: 5),
         TextInput(
@@ -102,6 +105,7 @@ class _MainViewState extends State<MainView> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),

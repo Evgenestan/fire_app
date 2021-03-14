@@ -15,4 +15,9 @@ class HistoryRepositoryImpl implements HistoryRepository {
   void addHistoryEntry(HistoryEntry historyEntry) {
     _historyClient.addHistoryEntry(historyEntry);
   }
+
+  @override
+  void deleteHistoryEntry(HistoryEntry historyEntry) {
+    _historyClient.deleteHistoryEntry(historyEntry);
+  }
 }

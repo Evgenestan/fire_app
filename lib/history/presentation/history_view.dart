@@ -6,6 +6,7 @@ import 'package:fire_app/widgets/express_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:yalo_locale/lib.dart';
 
 class HistoryView extends StatefulWidget {
   @override
@@ -14,9 +15,11 @@ class HistoryView extends StatefulWidget {
 
 class _HistoryViewState extends State<HistoryView> {
   final HistoryState _historyState = HistoryState(sl<HistoryRepository>());
+  final _loc = sl<LocalizationMessages>();
 
   Widget _buildEntry(BuildContext context, int index) {
-    return HistoryEntryFragment(_historyState.history[index]);
+    final historyEntry = _historyState.history[index];
+    return HistoryEntryFragment(entry: historyEntry, onDelete: () => _historyState.deleteHistoryEntry(historyEntry));
   }
 
   @override
@@ -28,7 +31,7 @@ class _HistoryViewState extends State<HistoryView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const ExpressAppBar(title: 'Журнал'),
+      appBar: ExpressAppBar(title: _loc.history.title),
       body: Observer(
         builder: (_) => ListView.builder(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 90),
