@@ -1,6 +1,7 @@
 import 'package:fire_app/auxiliary/sl.dart';
 import 'package:fire_app/history/domain/repository/history_repository.dart';
 import 'package:fire_app/history/domain/state/history_state.dart';
+import 'package:fire_app/widgets/buttons.dart';
 import 'package:fire_app/widgets/input/text_input.dart';
 import 'package:fire_app/widgets/text.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,17 +15,17 @@ class AddHistoryModal extends StatelessWidget {
     final HistoryState _historyState = HistoryState(sl<HistoryRepository>());
     final _loc = sl<LocalizationMessages>();
 
-    String title;
-    void saveEntry() {
-      if (!_historyState.titleAlreadyExists(title)) {
+    String title = '';
+    void _saveEntry() {
+      if (title.isNotEmpty && !_historyState.titleAlreadyExists(title)) {
         Navigator.of(context).pop(title);
       }
     }
 
     _historyState.init();
     return SimpleDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       titlePadding: EdgeInsets.zero,
       children: [
         Column(
@@ -39,8 +40,33 @@ class AddHistoryModal extends StatelessWidget {
                 errorText: _historyState.titleError,
               ),
             ),
-            const SizedBox(height: 20),
-            RaisedButton(onPressed: saveEntry, child: TextM(_loc.history.buttons.add)),
+            //const SizedBox(height: 5),
+            // Button(
+            //   onPressed: _saveEntry,
+            //   title: 'Сохранить',
+            //   color: Colors.grey,
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Button(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Icon(Icons.clear, size: 30),
+                    color: Colors.red,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Button(
+                    child: const Icon(Icons.save, size: 30),
+                    onPressed: _saveEntry,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 5),
           ],
         )
       ],

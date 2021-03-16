@@ -74,5 +74,6 @@ abstract class _MainState with Store {
   void clear() {
     coefficientController.text = '';
     timeController.text = '';
+    coefficient = null;
   }
 }
