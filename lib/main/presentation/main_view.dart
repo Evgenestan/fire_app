@@ -50,10 +50,12 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget _buildLogo() {
-    return SizedBox(
-      height: 150,
+    return Container(
+      width: 150,
+      height: 250,
       child: Image.asset(
-        Assets.fireIconS,
+        Assets.appIconS,
+        fit: BoxFit.fitWidth,
       ),
     );
   }
@@ -105,6 +107,7 @@ class _MainViewState extends State<MainView> {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: ListView(
