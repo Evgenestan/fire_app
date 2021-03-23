@@ -29,9 +29,8 @@ class AddHistoryModal extends StatelessWidget {
       titlePadding: EdgeInsets.zero,
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            HeadingM(_loc.history.add),
+            HeadingM(_loc.history.add, textAlign: TextAlign.center),
             const SizedBox(height: 20),
             Observer(
               builder: (_) => TextInput(

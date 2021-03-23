@@ -108,7 +108,6 @@ class _MainViewState extends State<MainView> {
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
         backgroundColor: Colors.white,
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
@@ -116,7 +115,7 @@ class _MainViewState extends State<MainView> {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: IconButton(icon: Image.asset(Assets.infoIconS), onPressed: _openInfo),
+                child: IconButton(icon: const Icon(Icons.info), onPressed: _openInfo),
               ),
               _buildLogo(),
               const SizedBox(height: 15),
@@ -130,6 +129,7 @@ class _MainViewState extends State<MainView> {
               _buildInputCoefficients(),
               const SizedBox(height: 30),
               _buildButton(),
+              const SizedBox(height: 30),
             ],
           ),
         ),

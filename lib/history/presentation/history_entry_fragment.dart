@@ -34,7 +34,7 @@ class HistoryEntryFragment extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                HeadingS(entry.title),
+                Expanded(child: HeadingS(entry.title, maxLines: 2)),
                 Row(
                   children: [IconButton(icon: const Icon(Icons.delete), onPressed: onDelete)],
                 ),

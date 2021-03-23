@@ -32,14 +32,17 @@ class HeadingM extends StatelessWidget {
 }
 
 class HeadingS extends StatelessWidget {
-  const HeadingS(this.text, {this.textAlign = TextAlign.start, this.color = textColor});
+  const HeadingS(this.text, {this.textAlign = TextAlign.start, this.color = textColor, this.maxLines = 1});
   final String text;
   final TextAlign textAlign;
   final Color color;
+  final int maxLines;
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      maxLines: maxLines,
+      overflow: TextOverflow.ellipsis,
       textAlign: textAlign,
       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: color),
     );
