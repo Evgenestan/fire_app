@@ -28,7 +28,7 @@ class _SelectorViewState extends State<SelectorView> {
     final text = _controller?.text;
     if (text != null) {
       setState(() {
-        _filteredItems = widget.items.where((element) => element.title.contains(text)).toList();
+        _filteredItems = widget.items.where((element) => element.title.toLowerCase().contains(text.toLowerCase())).toList();
       });
     }
   }

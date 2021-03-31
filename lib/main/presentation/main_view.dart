@@ -51,11 +51,9 @@ class _MainViewState extends State<MainView> {
 
   Widget _buildLogo() {
     return Container(
-      width: 150,
       height: 250,
       child: Image.asset(
-        Assets.appIconS,
-        fit: BoxFit.fitWidth,
+        Assets.imageS,
       ),
     );
   }

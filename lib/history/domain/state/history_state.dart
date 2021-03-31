@@ -44,4 +44,8 @@ abstract class _HistoryState with Store {
     _historyRepository.deleteHistoryEntry(historyEntry);
     history.removeWhere((element) => element.title == historyEntry.title);
   }
+
+  Future<bool> exportToCsv(String fileName) {
+    return _historyRepository.exportToCsv(fileName);
+  }
 }

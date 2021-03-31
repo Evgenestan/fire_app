@@ -7,7 +7,7 @@ class HistoryRepositoryImpl implements HistoryRepository {
   final HistoryClient _historyClient;
 
   @override
-  Future<List<HistoryEntry>> getHistory() async {
+  Future<List<HistoryEntry>> getHistory() {
     return _historyClient.getHistory();
   }
 
@@ -19,5 +19,10 @@ class HistoryRepositoryImpl implements HistoryRepository {
   @override
   void deleteHistoryEntry(HistoryEntry historyEntry) {
     _historyClient.deleteHistoryEntry(historyEntry);
+  }
+
+  @override
+  Future<bool> exportToCsv(String fileName) {
+    return _historyClient.exportHistory(fileName);
   }
 }

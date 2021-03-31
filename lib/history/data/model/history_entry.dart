@@ -6,6 +6,10 @@ part 'history_entry.g.dart';
 class HistoryEntry {
   HistoryEntry({this.id, this.title, this.result, this.time, this.coefficient});
 
+  List<String> toList() {
+    return [title, result, time, coefficient];
+  }
+
   @HiveField(0)
   int id;
 

@@ -4,4 +4,5 @@ abstract class HistoryRepository {
   Future<List<HistoryEntry>> getHistory();
   void addHistoryEntry(HistoryEntry historyEntry);
   void deleteHistoryEntry(HistoryEntry historyEntry);
+  Future<bool> exportToCsv(String fileName);
 }
